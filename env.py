@@ -149,7 +149,7 @@ class Viewer(pyglet.window.Window):
         
         self.arm1.vertices = np.concatenate((xy01, xy02, xy11, xy12))
         self.arm2.vertices = np.concatenate((xy11_, xy12_, xy21, xy22))
-	self.arm3.vertices = np.concatenate((xy21_, xy22_, xy31, xy32))
+        self.arm3.vertices = np.concatenate((xy21_, xy22_, xy31, xy32))
 
 if __name__ == '__main__':
     env = ArmEnv()
