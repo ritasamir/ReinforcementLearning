@@ -142,7 +142,7 @@ class Viewer(pyglet.window.Window):
         xy12_ = a1xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.bar_thc
         xy21 = a2xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.bar_thc
         xy22 = a2xy_ + np.array([np.cos(a2tr), -np.sin(a2tr)]) * self.bar_thc
-	xy21_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
+        xy21_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy22_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy31 = a3xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy32 = a3xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
