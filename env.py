@@ -131,8 +131,8 @@ class Viewer(pyglet.window.Window):
         a2xy_ = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a2 end (x2, y2)
         a3xy_ = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a3l + a2xy_  # a2 end (x2, y2)
         a1tr = np.pi / 2 - a1r
-        a2tr = np.pi / 2 - a1r -a2tr
-        a3tr = np.pi / 2 - a1r - a2tr - a3tr
+        a2tr = np.pi / 2 - a1r - a1tr
+        a3tr = np.pi / 2 - a1r - a2tr - a1tr
         xy01 = a1xy + np.array([-np.cos(a1tr), np.sin(a1tr)]) * self.bar_thc
         xy02 = a1xy + np.array([np.cos(a1tr), -np.sin(a1tr)]) * self.bar_thc
         xy11 = a1xy_ + np.array([np.cos(a1tr), -np.sin(a1tr)]) * self.bar_thc
