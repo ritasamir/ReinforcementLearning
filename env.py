@@ -26,8 +26,8 @@ class ArmEnv(object):
         (a1r, a2r,a3r) = self.arm_info['r']  # radian, angle
         a1xy = np.array([200., 200.])    # a1 start (x0, y0)
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        a2xy_ = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        finger = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        a2xy_ = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a1 end and a2 start (x1, y1)
+        finger = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a3l + a2xy_  # a1 end and a2 start (x1, y1)
         # normalize features
         dist1 = [(self.goal['x'] - a1xy_[0]) / 400, (self.goal['y'] - a1xy_[1]) / 400]
         dist2=[(self.goal['x'] - a2xy_[0]) / 400, (self.goal['y'] - a2xy_[1]) / 400]
@@ -55,8 +55,8 @@ class ArmEnv(object):
         (a1r, a2r,a3r) = self.arm_info['r']  # radian, angle
         a1xy = np.array([200., 200.])  # a1 start (x0, y0)
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        a2xy_= np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        finger = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        a2xy_= np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a1 end and a2 start (x1, y1)
+        finger = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a3l + a2xy_  # a1 end and a2 start (x1, y1)
         # normalize features
         dist1 = [(self.goal['x'] - a1xy_[0])/400, (self.goal['y'] - a1xy_[1])/400]
         dist2 = [(self.goal['x'] - a2xy_[0])/400, (self.goal['y'] - a2xy_[1])/400]
@@ -127,13 +127,12 @@ class Viewer(pyglet.window.Window):
         (a1l, a2l, a3l) = self.arm_info['l']     # radius, arm length
         (a1r, a2r, a3r) = self.arm_info['r']     # radian, angle
         a1xy = self.center_coord            # a1 start (x0, y0)
-        a2xy = self.center_coord            # a1 start (x0, y0)
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy   # a1 end and a2 start (x1, y1)
         a2xy_ = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a2 end (x2, y2)
         a3xy_ = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a3l + a2xy_  # a2 end (x2, y2)
         a1tr = np.pi / 2 - a1r
-        a2tr = np.pi / 2 - a1r - a1tr
-        a3tr = np.pi / 2 - a1r - a2tr - a1tr
+        a2tr = np.pi / 2 - a1r - a2r
+        a3tr = np.pi / 2 - a1r - a2r - a3r
         xy01 = a1xy + np.array([-np.cos(a1tr), np.sin(a1tr)]) * self.bar_thc
         xy02 = a1xy + np.array([np.cos(a1tr), -np.sin(a1tr)]) * self.bar_thc
         xy11 = a1xy_ + np.array([np.cos(a1tr), -np.sin(a1tr)]) * self.bar_thc
@@ -143,8 +142,8 @@ class Viewer(pyglet.window.Window):
         xy12_ = a1xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.bar_thc
         xy21 = a2xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.bar_thc
         xy22 = a2xy_ + np.array([np.cos(a2tr), -np.sin(a2tr)]) * self.bar_thc
-        xy21_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
-        xy22_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
+        xy21_ = a2xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
+        xy22_ = a2xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy31 = a3xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy32 = a3xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         
