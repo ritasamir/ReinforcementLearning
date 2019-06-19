@@ -11,8 +11,7 @@ class ArmEnv(object):
     action_dim = 3
 
     def __init__(self):
-        self.arm_info = np.zeros(
-            3, dtype=[('l', np.float32), ('r', np.float32)])
+        self.arm_info = np.zeros(3, dtype=[('l', np.float32), ('r', np.float32)])
         self.arm_info['l'] = 66       # 2 arms length
         self.arm_info['r'] = np.pi/6    # 2 angles information
         self.on_goal = 0
@@ -27,8 +26,8 @@ class ArmEnv(object):
         (a1r, a2r,a3r) = self.arm_info['r']  # radian, angle
         a1xy = np.array([200., 200.])    # a1 start (x0, y0)
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        a2xy_=np.array([np.cos(a1r+a2r), np.sin(a1r+a2r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        finger = np.array([np.cos(a1r+a2r+a3r), np.sin(a1r+a2r+a3r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        a2xy_ = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        finger = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
         # normalize features
         dist1 = [(self.goal['x'] - a1xy_[0]) / 400, (self.goal['y'] - a1xy_[1]) / 400]
         dist2=[(self.goal['x'] - a2xy_[0]) / 400, (self.goal['y'] - a2xy_[1]) / 400]
@@ -56,14 +55,14 @@ class ArmEnv(object):
         (a1r, a2r,a3r) = self.arm_info['r']  # radian, angle
         a1xy = np.array([200., 200.])  # a1 start (x0, y0)
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        a2xy_= np.array([np.cos(a1r+a2r), np.sin(a1r+a2r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
-        finger = np.array([np.cos(a1r+a2r+a3r), np.sin(a1r+a2r+a3r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        a2xy_= np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
+        finger = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a1l + a1xy  # a1 end and a2 start (x1, y1)
         # normalize features
         dist1 = [(self.goal['x'] - a1xy_[0])/400, (self.goal['y'] - a1xy_[1])/400]
         dist2 = [(self.goal['x'] - a2xy_[0])/400, (self.goal['y'] - a2xy_[1])/400]
         dist3 = [(self.goal['x'] - finger[0])/400, (self.goal['y'] - finger[1])/400]
         # state
-        s = np.concatenate((a1xy_/200,a2xy_/200, finger/200, dist1 + dist2+dist3, [1. if self.on_goal else 0.]))
+        s = np.concatenate((a1xy_/200, a2xy_/200, finger/200, dist1 + dist2 + dist3, [1. if self.on_goal else 0.]))
         return s
 
     def render(self):
@@ -125,13 +124,12 @@ class Viewer(pyglet.window.Window):
         self.batch.draw()
 
     def _update_arm(self):
-        (a1l, a2l,a3l) = self.arm_info['l']     # radius, arm length
-        (a1r, a2r,a3r) = self.arm_info['r']     # radian, angle
+        (a1l, a2l, a3l) = self.arm_info['l']     # radius, arm length
+        (a1r, a2r, a3r) = self.arm_info['r']     # radian, angle
         a1xy = self.center_coord            # a1 start (x0, y0)
         a1xy_ = np.array([np.cos(a1r), np.sin(a1r)]) * a1l + a1xy   # a1 end and a2 start (x1, y1)
-        a2xy_ = np.array([np.cos(a1r+a2r), np.sin(a1r+a2r)]) * a2l + a1xy_  # a2 end (x2, y2)
-	a3xy_ = np.array([np.cos(a1r+a2r+a3r), np.sin(a1r+a2r+a3r)]) * a3l + a2xy_
-	
+        a2xy_ = np.array([np.cos(a1r + a2r), np.sin(a1r + a2r)]) * a2l + a1xy_  # a2 end (x2, y2)
+	a3xy_ = np.array([np.cos(a1r + a2r + a3r), np.sin(a1r + a2r + a3r)]) * a3l + a2xy_  # a2 end (x2, y2)
         a1tr = np.pi / 2 - a1r
         a2tr = np.pi / 2 - a1r -a2tr
         a3tr = np.pi / 2 - a1r - a2tr - a3tr
