@@ -143,14 +143,14 @@ class Viewer(pyglet.window.Window):
         xy12_ = a1xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.bar_thc
         xy21 = a2xy_ + np.array([-np.cos(a2tr), np.sin(a2tr)]) * self.bar_thc
         xy22 = a2xy_ + np.array([np.cos(a2tr), -np.sin(a2tr)]) * self.bar_thc
-				xy21_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
+	xy21_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy22_ = a2xy + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy31 = a3xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         xy32 = a3xy_ + np.array([np.cos(a3tr), -np.sin(a3tr)]) * self.bar_thc
         
         self.arm1.vertices = np.concatenate((xy01, xy02, xy11, xy12))
         self.arm2.vertices = np.concatenate((xy11_, xy12_, xy21, xy22))
-				self.arm3.vertices = np.concatenate((xy21_, xy22_, xy31, xy32))
+	self.arm3.vertices = np.concatenate((xy21_, xy22_, xy31, xy32))
 
 if __name__ == '__main__':
     env = ArmEnv()
